@@ -25,6 +25,20 @@ class BloodCompatibility {
     public static List<String> getCompatibleGroups(String bloodGroup) {
         return map.getOrDefault(bloodGroup, new ArrayList<>());
     }
+
+     public static int getPriority(String bg) {
+        switch (bg) {
+            case "O-": return 8; // rarest → protect most
+            case "AB-": return 7;
+            case "B-": return 6;
+            case "A-": return 5;
+            case "O+": return 4;
+            case "AB+": return 3;
+            case "B+": return 2;
+            case "A+": return 1; // most common
+            default: return 0;
+        }
+   }
 }
 
 //Distance of donor from patient
@@ -32,5 +46,7 @@ class DistanceCalculator {
     public static int calculate(int x1, int y1, int x2, int y2) {
         return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
+
+  
 }
 
