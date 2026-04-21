@@ -22,8 +22,15 @@ public class Main{
                  System.out.println("Enter no of days since you have donated blood last time(If never donated enter 90)");
                  int dbreak=sc.nextInt();
                  sc.nextLine();
-                Donor d=new Donor(name,bg,x,y,dbreak);
-                DonorService.registerDonor(d);
+                 System.out.println("Enter Mobile no");
+                  String mobileno=sc.next(); 
+                if(DonorService.isValid(mobileno)){
+                                      Donor d=new Donor(name,bg,x,y,dbreak,mobileno);
+                                DonorService.registerDonor(d);
+                }
+               else{
+                System.out.println("Invalid mobile no entered:Registration failed");
+               }
                }
             
             case 2 -> {System.out.println("Enter name:");
@@ -42,7 +49,8 @@ public class Main{
                  }
 
               case 3 -> MatchingServices.match();
-          
+              
+              case 4 ->ArchiveRecord.displayArchive();
             
         }
         System.out.println("Enter 0 to exit and 1 to continue");
@@ -50,7 +58,7 @@ public class Main{
                 }
         while(exit!=0);
 
-        
+        System.out.println("Exiting Program........\n Program Ended");
 
 
     }

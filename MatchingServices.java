@@ -23,20 +23,19 @@ class MatchingServices {
 
                 for (Donor d : donors) {
 
-                    if (d.isAvailable) {
-                         int dist = DistanceCalculator.calculate(p.x, p.y, d.x, d.y);
+             int bestScore = Integer.MAX_VALUE;
 
-                         if (priority < bestPriority) {
-                bestPriority = priority;
-                minDist = dist;
-                best = d;
-            }
+             if (d.isAvailable) {
+             int  dist = DistanceCalculator.calculate(p.x, p.y, d.x, d.y);
 
-            // If same priority, then minimize distance
-            else if (priority == bestPriority && dist < minDist) {
-                minDist = dist;
-                best = d;
-            }
+                  int score = priority * 10 + dist;
+
+                      if (score < bestScore) {
+                         bestScore = score;
+                              best = d;
+                              minDist=dist;
+                       }
+}
 
 
                 }
@@ -44,6 +43,7 @@ class MatchingServices {
           
             if (best != null) {
                 best.isAvailable = false;
+                Datastore.archive.add(new ArchiveRecord(best.name,p.PatientName,best.bloodGroup));
                System.out.printf("%-15s %-15s %-15s %-10d\n", p.PatientName,best.name, p.BloodGroup, minDist);
             } 
             else {
@@ -53,4 +53,3 @@ class MatchingServices {
     }
 }
 
-}
