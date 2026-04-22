@@ -5,7 +5,7 @@ public class Main{
         System.out.printf("%100S","Welcome to Blood Donor Matching and Urgency System\n");
        int exit;
         do{
-        System.out.println("Menu:\n Enter 1 to register donor\n Enter 2 to add new patient \n Enter 3 to get the patient-Donor match list");
+        System.out.println("Menu:\n Enter 1 to register donor\n Enter 2 to add new patient \n Enter 3 to get the patient-Donor match list \n Enter 4 to get Donation history");
         Scanner sc=new Scanner(System.in);
         int inp=sc.nextInt();
          sc.nextLine();

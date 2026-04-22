@@ -14,7 +14,9 @@ class MatchingServices {
             List<String> groups = BloodCompatibility.getCompatibleGroups(p.BloodGroup);
 
             Donor best = null;
+        
             int bestPriority = Integer.MAX_VALUE;
+
             int minDist = Integer.MAX_VALUE;
            
             for (String g : groups) {
@@ -23,28 +25,26 @@ class MatchingServices {
 
                 for (Donor d : donors) {
 
-             int bestScore = Integer.MAX_VALUE;
-
+           
              if (d.isAvailable) {
              int  dist = DistanceCalculator.calculate(p.x, p.y, d.x, d.y);
 
-                  int score = priority * 10 + dist;
+                  if (priority < bestPriority || 
+               (priority == bestPriority && dist < minDist)) {
 
-                      if (score < bestScore) {
-                         bestScore = score;
-                              best = d;
-                              minDist=dist;
-                       }
-}
+                bestPriority = priority;
+                minDist = dist;
+                best = d;
+            }
 
-
+             }
                 }
             }
           
             if (best != null) {
                 best.isAvailable = false;
                 Datastore.archive.add(new ArchiveRecord(best.name,p.PatientName,best.bloodGroup));
-               System.out.printf("%-15s %-15s %-15s %-10d\n", p.PatientName,best.name, p.BloodGroup, minDist);
+               System.out.printf("%-15s %-15s %-15s %-10d\n", p.PatientName,best.name, best.bloodGroup, minDist);
             } 
             else {
                System.out.printf("%-15s %-15s %-15s %-10s\n",p.PatientName, "Not Found", p.BloodGroup, "-");
